@@ -19,5 +19,5 @@ public interface CategoryService {
 
     Category updateOneById(Long categoryId, @Valid SaveCategory saveCategory);
 
-    Product disableOneById(Long categoryId);
+    Category disableOneById(Long categoryId);
 }
