@@ -23,7 +23,7 @@ public class Product {
     private Category category;
 
     public static enum ProductStatus{
-        ENABLE,DISABLE
+        ENABLED,DISABLED
     }
 
     public Long getId() {

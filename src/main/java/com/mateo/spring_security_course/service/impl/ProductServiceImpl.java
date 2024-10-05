@@ -5,6 +5,7 @@ import com.mateo.spring_security_course.exception.ObjectNotFoundException;
 import com.mateo.spring_security_course.persistence.entity.Category;
 import com.mateo.spring_security_course.persistence.entity.Product;
 import com.mateo.spring_security_course.persistence.repository.CategoryRepository;
+import com.mateo.spring_security_course.persistence.repository.ProductRepository;
 import com.mateo.spring_security_course.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,7 +18,7 @@ import java.util.Optional;
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
-    private CategoryRepository productRepository;
+    private ProductRepository productRepository;
 
     @Override
     public Page<Product> findAll(Pageable pageable) {
@@ -34,7 +35,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = new Product();
         product.setName(saveProduct.getName());
         product.setPrice(saveProduct.getPrice());
-        product.setStatus(Product.ProductStatus.ENABLE);
+        product.setStatus(Product.ProductStatus.ENABLED);
 
         Category category = new Category();
         category.setId(saveProduct.getCategoryId());
@@ -62,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
                 .findById(productId)
                 .orElseThrow(() -> new ObjectNotFoundException("Product not found with id " + productId));
 
-        productFromDB.setStatus(Product.ProductStatus.DISABLE);
+        productFromDB.setStatus(Product.ProductStatus.DISABLED);
         return this.productRepository.save(productFromDB);
     }
 }
