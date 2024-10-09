@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -38,7 +39,11 @@ public class GlobalExceptionHandler {
         apiError.setTimestamp(LocalDateTime.now());
         apiError.setMessage("Error en la petición enviada");
 
-        System.out.println(exception.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage));
+        System.out.println(exception
+                .getAllErrors()
+                .stream()
+                .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                .collect(Collectors.toList()));
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
     }
